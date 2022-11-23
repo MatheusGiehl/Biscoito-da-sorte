@@ -5,7 +5,11 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state= {};
+    this.state= {
+      textoFrase : '',
+    };
+
+    this.quebraBiscoito = this.quebraBiscoito.bind(this);
 
     this.frases = [
       'Siga os bons e aprenda com eles.',
@@ -19,7 +23,10 @@ class App extends Component {
   }
 
   quebraBiscoito() {
-    console.log("quebrou");
+    let state = this.state ;
+    let numeroAleatorio = Math.floor(Math.random() * this.frases.length);
+    state.textoFrase = '"' + this.frases[numeroAleatorio] + '"';
+    this.setState(state);
   }
 
   render() {
@@ -30,8 +37,11 @@ class App extends Component {
          src={require('./assets/biscoito.png')}
          alt='biscoito'
       />
-      <Botao nome="Abrir Biscoito" acaoBtn={this.quebraBiscoito}/>
-      <h3 className="textoFrase">Frase aleatória... </h3>
+      <Botao 
+      nome="Abrir Biscoito" 
+      acaoBtn={this.quebraBiscoito}
+      />
+      <h3 className="textoFrase">{this.state.textoFrase}</h3>
     </div>
     );
   }
@@ -42,7 +52,7 @@ class Botao extends Component {
     return (
       <div>
         <button
-         onCLick={this.props.acaoBtn} 
+         onClick={this.props.acaoBtn} 
          className="botao btn"
          >
           {this.props.nome}
